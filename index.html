@@ -26,6 +26,14 @@
   // le code d'invitation éventuel (?invite=...) est transmis à l'app
   document.getElementById('app').src = APP + location.search;
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+    // garde l'app à la hauteur exacte de l'écran, même au retour d'une autre application
+  function ajusterCadre() { document.getElementById('app').style.height = window.innerHeight + 'px'; }
+  ajusterCadre();
+  window.addEventListener('resize', ajusterCadre);
+  window.addEventListener('pageshow', ajusterCadre);
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) { ajusterCadre(); setTimeout(ajusterCadre, 300); }
+  });
 </script>
 </body>
 </html>
